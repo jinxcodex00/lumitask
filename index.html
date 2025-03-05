@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transparent To-Do List</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap");
+
+    body {
+      font-family: "Comic Neue", cursive;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: transparent;
+      margin: 0;
+    }
+    .todo-container {
+      width: 300px;
+      background: rgba(255, 255, 255, 0.1) url("images/bearbows.jpg") repeat;
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+
+    h2 {
+      text-align: center;
+      color: rgb(184, 12, 12);
+    }
+    input {
+      width: 80%;
+      padding: 8px;
+      border: none;
+      border-radius: 5px;
+      outline: none;
+    }
+    button {
+      padding: 8px 12px;
+      border: none;
+      background: #b3ae99;
+      color: rgb(0, 0, 0);
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      display: flex;
+      justify-content: space-between;
+      background: rgba(161, 14, 14, 0.2);
+      padding: 10px;
+      border-radius: 10px;
+      margin-top: 5px;
+      color: rgb(3, 2, 2);
+      opacity: 0;
+      transform: translateY(-10px);
+      animation: fadeIn 0.3s forwards;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+    }
+    .gif-container {
+      display: flex;
+      justify-content: center;
+      position: absolute;
+      bottom: 10px; /* Move it to the bottom */
+      right: 10px; /* Move it to the right */
+    }
+
+    .gif-container img {
+      width: 100px;
+      height: 100px;
+    }
+  </style>
+  <body>
+    <div class="todo-container">
+      <div class="gif-container">
+        <img src="images/molangdance.gif" alt="GIF" />
+      </div>
+      <h2>Star's To-Do List<3</h2>
+      <input type="text" id="taskInput" placeholder="Add a task..." />
+      <button onclick="addTask()">Add</button>
+      <ul id="taskList"></ul>
+    </div>
+
+    <script>
+      function addTask() {
+        const taskInput = document.getElementById("taskInput");
+        const taskList = document.getElementById("taskList");
+        if (taskInput.value.trim() !== "") {
+          const li = document.createElement("li");
+          li.innerHTML = ❤️ ${taskInput.value} <button onclick="removeTask(this)">❌</button>;
+          taskList.appendChild(li);
+          taskInput.value = "";
+        }
+      }
+
+      function removeTask(button) {
+        const li = button.parentElement;
+        li.style.animation = "fadeOut 0.3s forwards";
+        setTimeout(() => li.remove(), 300);
+      }
+
+      document
+        .getElementById("taskInput")
+        .addEventListener("keypress", function (event) {
+          if (event.key === "Enter") {
+            addTask();
+          }
+        });
+    </script>
+  </body>
+</html>
